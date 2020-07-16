@@ -11,9 +11,12 @@ import com.example.manajemenuser.pojo.ResponseInsert
 import com.example.manajemenuser.ui.home.HomeActivity
 import com.example.manajemenuser.ui.home.HomeActivity.Companion.NAME_NOT_SYNCED_WITH_SERVER
 import com.example.manajemenuser.ui.home.HomeActivity.Companion.NAME_SYNCED_WITH_SERVER
+import com.example.manajemenuser.utils.Utils
 import kotlinx.android.synthetic.main.activity_add.*
 import retrofit2.Call
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddActivity : AppCompatActivity() {
     private var db: DatabaseHelper? = null
@@ -31,25 +34,31 @@ class AddActivity : AppCompatActivity() {
             val email = edtEmail.text.toString()
             if (edtEmail.text.toString().isEmpty()) {
                 edtEmail.setError("Email tidak bisi kosong")
+            } else if (Utils().isValidEmailAddress(email) == false) {
+                edtEmail.setError("Email, salah format")
+                Toast.makeText(this, "Email Salah format", Toast.LENGTH_LONG).show()
             } else if (edtFirstName.text.toString().isEmpty()) {
                 edtFirstName.setError("Nama depan tidak bisa kosong")
             } else if (edtLastName.text.toString().isEmpty()) {
                 edtLastName.setError("Nama Belakang tidak bisa kosong")
 
             } else {
-                val service = ApiClient.getClient().create(
+                val sdf = SimpleDateFormat("YYYY-MM-DD HH:mm:ss", Locale.getDefault())
+                val currentDate = sdf.format(Date())
+
+                val service = ApiClient.client?.create(
                     ApiInterface::class.java
                 )
                 val call =
-                    service.insertData(
+                    service?.insertData(
                         HomeActivity.KEY,
                         name,
                         email
                     )
 
-                call.enqueue(object : retrofit2.Callback<ResponseInsert> {
+                call?.enqueue(object : retrofit2.Callback<ResponseInsert> {
                     override fun onFailure(call: Call<ResponseInsert>, t: Throwable) {
-                        db?.addName(name, email, "", NAME_NOT_SYNCED_WITH_SERVER)
+                        db?.addName(name, email, currentDate, NAME_NOT_SYNCED_WITH_SERVER)
                         finish()
                     }
 

@@ -7,4 +7,6 @@
     <string name="simpan">Simpan</string>
     <string name="data_kosong">Data Kosong</string>
     <string name="singkronisasi">Singkronisasi</string>
+    <string name="input_user">Input User</string>
+    <string name="data_user">Data User</string>
 </resources>

@@ -5,34 +5,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="@dimen/ukuran_16"
     tools:context=".ui.add.AddActivity">
 
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="@string/input_user"
+        android:background="@color/purple"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ukuran_50"/>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+
+        android:layout_margin="@dimen/ukuran_16"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/ukuran_8"
+        android:text="@string/email" />
+
     <EditText
         android:id="@+id/edtEmail"
-        android:hint="@string/email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="@dimen/ukuran_50"
+        android:background="@drawable/bg_edt"
+        android:hint="@string/email"
+        android:paddingStart="@dimen/ukuran_10"
+
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ukuran_16"
+        android:layout_marginBottom="@dimen/ukuran_8"
+        android:text="@string/nama_depan" />
+
     <EditText
         android:id="@+id/edtFirstName"
-        android:hint="@string/nama_depan"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="@dimen/ukuran_50"
+        android:background="@drawable/bg_edt"
+        android:hint="@string/nama_depan"
+        android:paddingStart="@dimen/ukuran_10"
+
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ukuran_16"
+        android:layout_marginBottom="@dimen/ukuran_8"
+        android:text="@string/nama_belakang" />
+
     <EditText
-        android:hint="@string/nama_belakang"
         android:id="@+id/edtLastName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="@dimen/ukuran_50"
+        android:background="@drawable/bg_edt"
+        android:hint="@string/nama_belakang"
+        android:paddingStart="@dimen/ukuran_10" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_marginTop="@dimen/ukuran_16"
         android:id="@+id/btnSimpan"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:text="@string/simpan"
-        android:background="@drawable/bg_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ukuran_16"
+        android:background="@drawable/bg_button"
+        android:text="@string/simpan"
+        android:textAllCaps="false"
+        android:textColor="@color/white" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

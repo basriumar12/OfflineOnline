@@ -1,46 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="@dimen/ukuran_10"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/ukuran_10"
+    android:id="@+id/cv"
     app:cardCornerRadius="@dimen/ukuran_8"
-    app:cardElevation="@dimen/ukuran_8"
-    android:layout_height="wrap_content">
+    app:cardElevation="@dimen/ukuran_8">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_margin="@dimen/ukuran_16"
+    <RelativeLayout
         android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/ukuran_16">
 
-    <TextView
-        android:layout_marginTop="@dimen/ukuran_10"
-        android:layout_marginStart="@dimen/ukuran_16"
-        android:text="Name"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/textViewName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_marginBottom="@dimen/ukuran_10"
-        android:layout_marginStart="@dimen/ukuran_16"
-        android:text="Email"
-        android:layout_below="@id/textViewName"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/textViewEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:layout_toStartOf="@id/textViewStatus"
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="@dimen/ukuran_16"
+            android:layout_marginTop="@dimen/ukuran_10"
+            android:text="Name" />
 
-    <ImageView
-        android:layout_margin="@dimen/ukuran_16"
-        android:background="@drawable/success"
-        android:layout_alignParentRight="true"
-        android:id="@+id/imageViewStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:layout_toStartOf="@id/textViewStatus"
+            android:id="@+id/textViewEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewName"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="@dimen/ukuran_16"
+            android:layout_marginBottom="@dimen/ukuran_10"
+            android:text="Email" />
+
+        <TextView
+            android:drawableLeft="@drawable/ic_baseline_access_time_24"
+            android:text="Menunggu Koneksi"
+            android:id="@+id/textViewStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/ukuran_16"
+            />
 
 
-
-</RelativeLayout>
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

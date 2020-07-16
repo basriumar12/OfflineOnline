@@ -41,10 +41,10 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         listViewNames = findViewById(R.id.listViewNames)
-        registerReceiver(
-            NetworkStateChecker(),
-            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-        )
+//        registerReceiver(
+//            NetworkStateChecker(),
+//            IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+//        )
 
         db = DatabaseHelper(this)
         list = ArrayList()
@@ -57,39 +57,31 @@ class HomeActivity : AppCompatActivity() {
         }
 
         btnSync.setOnClickListener {
-            //syncData()
-            broadcastReceiver = object : BroadcastReceiver() {
-                override fun onReceive(
-                    context: Context,
-                    intent: Intent
-                ) {
-                    loadNames()
-                }
-            }
-
-            registerReceiver(
-                broadcastReceiver,
-                IntentFilter(DATA_SAVED_BROADCAST)
-           )
+            syncData()
         }
+
     }
 
     override fun onResume() {
         super.onResume()
         loadNames()
+        checkSyncVisible()
 
+
+    }
+
+    private fun checkSyncVisible() {
         val cursor = db?.unsyncedNames
         if (cursor != null)
 
             if (cursor.count > 0) {
                 btnSync.visibility = View.VISIBLE
-            } else{
+            } else {
                 btnSync.visibility = View.GONE
             }
     }
 
-
-    private fun syncData(){
+    private fun syncData() {
         val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val acNetworkInfo = cm.activeNetworkInfo
         //cek jaringan
@@ -111,21 +103,25 @@ class HomeActivity : AppCompatActivity() {
 
     private fun saveName(id: Int, nama: String, email: String) {
         val service =
-            ApiClient.getClient().create(ApiInterface::class.java)
-        val call = service.insertData(KEY, nama, email)
-        call.enqueue(object : Callback<ResponseInsert> {
+            ApiClient.client?.create(ApiInterface::class.java)
+        val call = service?.insertData(KEY, nama, email)
+        call?.enqueue(object : Callback<ResponseInsert> {
             override fun onResponse(
                 call: Call<ResponseInsert>,
                 response: Response<ResponseInsert>
             ) {
                 val error = response.code()
                 if (error == 200) {
+                    Toast.makeText(this@HomeActivity, "Suksess sync", Toast.LENGTH_LONG).show()
                     db?.updateNameStatus(
                         id,
-                        HomeActivity.NAME_SYNCED_WITH_SERVER,
+                       NAME_SYNCED_WITH_SERVER,
                         response.body()?.date
                     )
-                  loadNames()
+                    list?.clear()
+                    manajemenAdapter?.notifyDataSetChanged()
+                    loadNames()
+                    checkSyncVisible()
                 }
             }
 
@@ -133,9 +129,11 @@ class HomeActivity : AppCompatActivity() {
                 call: Call<ResponseInsert>,
                 t: Throwable
             ) {
+                Toast.makeText(this@HomeActivity, "Gagal sync", Toast.LENGTH_LONG).show()
             }
         })
     }
+
     private fun loadNames() {
         //getdataFromServer();
         list?.clear()
@@ -158,66 +156,17 @@ class HomeActivity : AppCompatActivity() {
         }
 
         listViewNames?.layoutManager = LinearLayoutManager(this)
-        manajemenAdapter = ManajemenAdapter(list, this, this)
+        manajemenAdapter = list?.let { ManajemenAdapter(it, this, this) }
         listViewNames?.adapter = manajemenAdapter
         manajemenAdapter?.notifyDataSetChanged()
     }
 
-    private fun getdataFromServer() {
-        val progressDialog = ProgressDialog(this@HomeActivity)
-        progressDialog.setMessage("Saving Name . . .")
-        progressDialog.show()
-        val service =
-            ApiClient.getClient().create(ApiInterface::class.java)
-        val call = service.getdata("basri")
-        call.enqueue(object : Callback<ArrayList<ResponseGetAll>> {
-            override fun onResponse(
-                call: Call<ArrayList<ResponseGetAll>>,
-                response: Response<ArrayList<ResponseGetAll>>
-            ) {
-                list?.clear()
-                progressDialog.dismiss()
-                val getdataName = response.code()
-                if (getdataName == 200) {
-                    val dataNama = response.body()!!
-                    for (i in dataNama.indices) {
-                        val newNamaFromServer = dataNama[i]
-                        val namaFromServer = newNamaFromServer.name
-                        val emailFromServer = newNamaFromServer.email
-                        val dateFromServer = newNamaFromServer.date
-                        //insert data
-                        val namaModel = ResponseGetAllOffline(
-                            namaFromServer,
-                            emailFromServer,
-                            dateFromServer,
-                            NAME_SYNCED_WITH_SERVER
-                        )
-                        list?.add(namaModel)
-                        //  db.addName(namaFromServer,emailFromServer,dateFromServer,1);
-                    }
-                }
-            }
-
-            override fun onFailure(
-                call: Call<ArrayList<ResponseGetAll>>,
-                t: Throwable
-            ) {
-                Log.e("TAG", "hasil " + t.message)
-                progressDialog.dismiss()
-                Toast.makeText(
-                    this@HomeActivity,
-                    " error get data$t",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        })
-    }
 
     companion object {
         //magic number
         const val NAME_SYNCED_WITH_SERVER = 1
         const val NAME_NOT_SYNCED_WITH_SERVER = 0
-        const val KEY = "barisss"
+        const val KEY = "bariusss"
 
         //a broadcast to know weather the data is synced or not
         const val DATA_SAVED_BROADCAST = "com.example.manajemenuser"

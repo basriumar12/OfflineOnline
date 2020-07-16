@@ -3,4 +3,5 @@
     <dimen name="ukuran_16">16dp</dimen>
     <dimen name="ukuran_10">10dp</dimen>
     <dimen name="ukuran_8">8dp</dimen>
+    <dimen name="ukuran_50">50dp</dimen>
 </resources>

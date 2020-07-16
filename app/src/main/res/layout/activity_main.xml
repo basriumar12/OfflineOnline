@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#EDE9E9">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="@string/data_user"
+        android:background="@color/purple"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ukuran_50"/>
+<RelativeLayout
     android:layout_width="match_parent"
     android:background="#EDE9E9"
     android:layout_height="match_parent"
@@ -51,3 +65,6 @@
         android:visibility="visible" />
 
 </RelativeLayout>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
