@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Manajemen User</string>
+    <string name="tambah">Tambah</string>
+    <string name="email">Email</string>
+    <string name="nama_depan">Nama Depan</string>
+    <string name="nama_belakang">Nama Belakang</string>
+    <string name="simpan">Simpan</string>
+    <string name="data_kosong">Data Kosong</string>
+    <string name="singkronisasi">Singkronisasi</string>
+</resources>
