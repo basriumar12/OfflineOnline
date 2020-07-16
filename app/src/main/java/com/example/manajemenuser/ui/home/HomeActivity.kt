@@ -57,20 +57,20 @@ class HomeActivity : AppCompatActivity() {
         }
 
         btnSync.setOnClickListener {
-            syncData()
-//            broadcastReceiver = object : BroadcastReceiver() {
-//                override fun onReceive(
-//                    context: Context,
-//                    intent: Intent
-//                ) {
-//                    loadNames()
-//                }
-//            }
-//
-//            registerReceiver(
-//                broadcastReceiver,
-//                IntentFilter(DATA_SAVED_BROADCAST)
-//            )
+            //syncData()
+            broadcastReceiver = object : BroadcastReceiver() {
+                override fun onReceive(
+                    context: Context,
+                    intent: Intent
+                ) {
+                    loadNames()
+                }
+            }
+
+            registerReceiver(
+                broadcastReceiver,
+                IntentFilter(DATA_SAVED_BROADCAST)
+           )
         }
     }
 
